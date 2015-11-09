@@ -11,8 +11,8 @@ ChapterForm = React.createClass({
         event.preventDefault();
 
         // Find the text field via the React ref
-        var title = React.findDOMNode(this.refs.titleInput).value.trim();
-        var body = React.findDOMNode(this.refs.bodyInput).value.trim();
+        var title = ReactDOM.findDOMNode(this.refs.titleInput).value.trim();
+        var body = ReactDOM.findDOMNode(this.refs.bodyInput).value.trim();
         var parent = null; //this.props.parent.id;
         var id = this.props.chapter ? this.props.chapter.id : null;
 
@@ -32,8 +32,8 @@ ChapterForm = React.createClass({
     },
 
     clear() {
-        React.findDOMNode(this.refs.titleInput).value = "";
-        React.findDOMNode(this.refs.bodyInput).value = "";
+        ReactDOM.findDOMNode(this.refs.titleInput).value = "";
+        ReactDOM.findDOMNode(this.refs.bodyInput).value = "";
     },
 
     render() {
