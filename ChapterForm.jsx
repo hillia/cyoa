@@ -3,7 +3,7 @@ ChapterForm = React.createClass({
     propTypes: {
         // This component gets the task to display through a React prop.
         // We can use propTypes to indicate it is required
-        parent: React.PropTypes.object.isRequired,
+        parent: React.PropTypes.object,
         chapter: React.PropTypes.object,
     },
 
@@ -13,16 +13,19 @@ ChapterForm = React.createClass({
         // Find the text field via the React ref
         var title = React.findDOMNode(this.refs.titleInput).value.trim();
         var body = React.findDOMNode(this.refs.bodyInput).value.trim();
-        var parent = this.props.parent.id;
+        var parent = null; //this.props.parent.id;
         var id = this.props.chapter ? this.props.chapter.id : null;
 
-
-        Chapters.find({ _id: id }).upsert({
-            title: title,
-            body: body,
-            parent: parent,
-            createdAt: new Date() // current time
-        });
+        Chapters.update(
+            {_id: id},
+            {
+                title: title,
+                body: body,
+                parent: parent,
+                createdAt: new Date() // current time
+            },
+            { upsert: true }
+        );
 
         // Clear form
         this.clear();
@@ -42,14 +45,12 @@ ChapterForm = React.createClass({
                     key="titleInput"
                     type="text"
                     ref="titleInput"
-                    placeholder="That Time the Cool Thing Happened"
-                    value={this.props.chapter ? this.props.chapter.title : ""} />
+                    placeholder="That Time the Cool Thing Happened"/>
                 <input
                     key="bodyInput"
                     type="text"
                     ref="bodyInput"
-                    placeholder="And then they fucked..."
-                    value={this.props.chapter ? this.props.chapter.body : ""} />
+                    placeholder="And then they fucked..."/>
                 <input
                     key="submit"
                     type="submit"/>

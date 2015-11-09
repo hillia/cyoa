@@ -3,7 +3,8 @@ App = React.createClass({
     render() {
         return (
             <div>
-                <ChapterList/>
+                {this.props.children}
+                <ChapterForm/>
             </div>
         );
     }
