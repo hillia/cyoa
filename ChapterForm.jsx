@@ -3,8 +3,8 @@ ChapterForm = React.createClass({
     propTypes: {
         // This component gets the task to display through a React prop.
         // We can use propTypes to indicate it is required
-        parent: React.PropTypes.object,
-        chapter: React.PropTypes.object,
+        parentSeq: React.PropTypes.object,
+        chapterSeq: React.PropTypes.object,
     },
 
     handleSubmit(event) {
@@ -13,19 +13,26 @@ ChapterForm = React.createClass({
         // Find the text field via the React ref
         var title = ReactDOM.findDOMNode(this.refs.titleInput).value.trim();
         var body = ReactDOM.findDOMNode(this.refs.bodyInput).value.trim();
-        var parent = null; //this.props.parent.id;
-        var id = this.props.chapter ? this.props.chapter.id : null;
+        var parent = this.props.params.parentSeq;
+        var seq = this.props.chapterSeq;
 
-        Chapters.update(
-            {_id: id},
-            {
-                title: title,
-                body: body,
-                parent: parent,
-                createdAt: new Date() // current time
-            },
-            { upsert: true }
-        );
+        chapterJson = {
+            seq: MongoUtils.getNextSequence("chapterid"),
+            parent: parent,
+            title: title,
+            body: body,
+            createdAt: new Date() // current time
+        };
+
+        if (!seq) {
+            Chapters.insert(chapterJson);
+        } else {
+            Chapters.update(
+                {seq: seq},
+                chapterJson,
+                { upsert: true }
+            );
+        }
 
         // Clear form
         this.clear();

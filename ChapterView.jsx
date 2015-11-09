@@ -6,7 +6,7 @@ ChapterView = React.createClass({
     // Loads items from the Tasks collection and puts them on this.data.chapters
     getMeteorData() {
         return {
-            chapter: Chapters.findOne({ _id: this.props.params.chapterId })
+            chapter: Chapters.findOne({ seq: this.props.params.chapterSeq })
         }
     },
 

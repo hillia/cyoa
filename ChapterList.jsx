@@ -14,7 +14,7 @@ ChapterList = React.createClass({
         return (
             <div>
                 {this.data.chapters.map((chapter) => {
-                    return <ChapterListItem key={chapter._id} chapter={chapter} />;
+                    return <ChapterListItem key={chapter.seq} chapter={chapter} />;
                 })}
             </div>
         );

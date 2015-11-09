@@ -1,3 +1,5 @@
+const {Link} = ReactRouter;
+
 // Task component - represents a single todo item
 ChapterListItem = React.createClass({
     propTypes: {
@@ -6,11 +8,15 @@ ChapterListItem = React.createClass({
         chapter: React.PropTypes.object.isRequired
     },
 
+    goToChapter() {
+
+    },
+
     render() {
         return (
-            <div>
-                Chapter {this.props.chapter._id}: {this.props.chapter.title}
-            </div>
+            <Link to={"/chapter/" + this.props.chapter.seq + "/new"}>
+                Chapter {this.props.chapter.seq}: {this.props.chapter.title}
+            </Link>
         );
     }
 });

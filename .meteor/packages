@@ -21,3 +21,4 @@ insecure                # Allow all DB writes from clients (for prototyping)
 react
 reactrouter:react-router-ssr
 reactrouter:react-router
+fongandrew:find-and-modify
