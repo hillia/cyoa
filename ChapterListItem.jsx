@@ -8,13 +8,9 @@ ChapterListItem = React.createClass({
         chapter: React.PropTypes.object.isRequired
     },
 
-    goToChapter() {
-
-    },
-
     render() {
         return (
-            <Link to={"/chapter/" + this.props.chapter.seq + "/new"}>
+            <Link to={"/chapter/" + this.props.chapter.seq}>
                 Chapter {this.props.chapter.seq}: {this.props.chapter.title}
             </Link>
         );
