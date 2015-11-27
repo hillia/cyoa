@@ -1,18 +1,30 @@
 // Task component - represents a single todo item
 ChapterView = React.createClass({
-    // This mixin makes the getMeteorData method work
-    mixins: [ReactMeteorData],
-
-    // Loads items from the Tasks collection and puts them on this.data.chapters
-    getMeteorData() {
-        return {
-            chapter: Chapters.findOne({ seq: Number(this.props.params.chapterSeq) })
-        }
+    propTypes: {
+        chapter: React.PropTypes.object.isRequired,
     },
 
     render() {
-        return (
-            <Chapter chapter={this.data.chapter}></Chapter>
-        );
+        if (this.props.chapter) {
+            return (
+                <div>
+                    <h2>
+                        {this.props.chapter.title}
+                    </h2>
+                    <p>
+                        {this.props.chapter.body}
+                    </p>
+                    <OptionsList chapter={this.props.chapter}></OptionsList>
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    <h2>No one has written this chapter yet.</h2>
+                    <p>It's up to you to continue the story!</p>
+                    <ChapterForm></ChapterForm>
+                </div>
+            );
+        }
     }
 });
